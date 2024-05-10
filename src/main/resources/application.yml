@@ -1,1 +1,10 @@
-spring.application.name=twitter-api
+server:
+  port: 8080
+spring:
+  application:
+    name: twitter-api
+  data:
+    mongodb:
+      host: localhost
+      port: 27070
+      database: twitter-db
