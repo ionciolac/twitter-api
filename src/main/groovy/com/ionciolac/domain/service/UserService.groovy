@@ -8,7 +8,6 @@ import com.ionciolac.port.inputs.UserInPort
 import com.ionciolac.port.outputs.UserOutPort
 import org.springframework.beans.BeanUtils
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -63,7 +62,7 @@ class UserService implements UserInPort, SecurityInPort {
             throw new ObjectNotFoundException(String.format("User with username %s was not found in DB", username))
     }
 
-    private PasswordEncoder passwordEncoder() {
+    def passwordEncoder() {
         return new BCryptPasswordEncoder()
     }
 }

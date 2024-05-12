@@ -10,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
@@ -54,35 +53,35 @@ class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response)
     }
 
-    private void setAuthentication(User user) {
+    def setAuthentication(User user) {
         Authentication authentication = createAuthenticationToken(user)
         SecurityContextHolder.getContext().setAuthentication(authentication)
     }
 
-    private Authentication createAuthenticationToken(User user) {
+    def createAuthenticationToken(User user) {
         AuthenticatedUser userPrincipal = AuthenticatedUser.create(user)
         return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities())
     }
 
-    private boolean checkPassword(String userPassword, String loginPassword) {
+    def checkPassword(String userPassword, String loginPassword) {
         return passwordEncoder().matches(loginPassword, userPassword)
     }
 
-    private String decodeBase64(String base64) {
+    def decodeBase64(String base64) {
         byte[] decodeBytes = Base64.getDecoder().decode(base64)
         return new String(decodeBytes)
     }
 
-    private boolean isBasicAuthentication(HttpServletRequest request) {
+    def isBasicAuthentication(HttpServletRequest request) {
         String header = getHeader(request)
         return header != null && header.startsWith(BASIC)
     }
 
-    private String getHeader(HttpServletRequest request) {
+    def getHeader(HttpServletRequest request) {
         return request.getHeader(AUTHORIZATION)
     }
 
-    private PasswordEncoder passwordEncoder() {
+    def passwordEncoder() {
         return new BCryptPasswordEncoder()
     }
 }
