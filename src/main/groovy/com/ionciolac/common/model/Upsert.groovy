@@ -1,8 +1,11 @@
 package com.ionciolac.common.model
 
+
 import lombok.AllArgsConstructor
 import lombok.Data
 import lombok.NoArgsConstructor
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 
 import java.time.Instant
 
@@ -10,6 +13,8 @@ import java.time.Instant
 @AllArgsConstructor
 @NoArgsConstructor
 class Upsert {
-    Instant createdOn;
-    Instant updatedOn;
+    @CreatedDate
+    Instant createdOn
+    @LastModifiedDate
+    Instant updatedOn
 }

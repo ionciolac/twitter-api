@@ -5,6 +5,7 @@ import com.ionciolac.common.exception.ObjectNotFoundException
 import com.ionciolac.domain.model.User
 import com.ionciolac.port.inputs.UserInPort
 import com.ionciolac.port.outputs.UserOutPort
+import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Service
 
 @Service
@@ -26,9 +27,11 @@ class UserService implements UserInPort {
     User updateUser(User user) {
         String userId = user.getId()
         Optional<User> userFromDB = userOutPort.getUser(userId)
-        if (userFromDB.isPresent())
-            return userOutPort.upsertUser(user)
-        else
+        if (userFromDB.isPresent()) {
+            User dbUser = userFromDB.get();
+            BeanUtils.copyProperties(user, dbUser, "createdOn")
+            return userOutPort.upsertUser(dbUser)
+        } else
             throw new ObjectNotFoundException(String.format("User with id %s was not found in DB", userId))
     }
 

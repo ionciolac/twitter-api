@@ -9,19 +9,23 @@ import org.springframework.stereotype.Component
 class PostPersistenceMapperImpl implements PostPersistenceMapper {
     @Override
     Post toPost(PostEntity postEntity) {
-        return Post.builder()
-                .id(postEntity.getId())
-                .userId(postEntity.getUserId())
-                .post(postEntity.getPost())
-                .build()
+        Post post = new Post()
+        post.setId(postEntity.getId())
+        post.setUserId(postEntity.getUserId())
+        post.setPost(postEntity.getPost())
+        post.setCreatedOn(postEntity.getCreatedOn())
+        post.setUpdatedOn(postEntity.getUpdatedOn())
+        return post
     }
 
     @Override
     PostEntity toPostEntity(Post post) {
-        return PostEntity.builder()
-                .id(post.getId())
-                .userId(post.getUserId())
-                .post(post.getPost())
-                .build()
+        PostEntity postEntity = new PostEntity()
+        postEntity.setId(post.getId())
+        postEntity.setUserId(post.getUserId())
+        postEntity.setPost(post.getPost())
+        postEntity.setCreatedOn(post.getCreatedOn())
+        postEntity.setUpdatedOn(post.getUpdatedOn())
+        return postEntity
     }
 }

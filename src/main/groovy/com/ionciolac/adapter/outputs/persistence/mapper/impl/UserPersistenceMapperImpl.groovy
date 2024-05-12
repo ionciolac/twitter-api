@@ -7,28 +7,33 @@ import org.springframework.stereotype.Component
 
 @Component
 class UserPersistenceMapperImpl implements UserPersistenceMapper {
+
     @Override
     User toUser(UserEntity userEntity) {
-        return User.builder()
-                .id(userEntity.getId())
-                .login(userEntity.getLogin())
-                .firstName(userEntity.getFirstName())
-                .lastName(userEntity.getLastName())
-                .email(userEntity.getEmail())
-                .phoneNumber(userEntity.getPhoneNumber())
-                .build()
+        User user = new User()
+        user.setId(userEntity.getId())
+        user.setLogin(userEntity.getLogin())
+        user.setFirstName(userEntity.getFirstName())
+        user.setLastName(userEntity.getLastName())
+        user.setEmail(userEntity.getEmail())
+        user.setPhoneNumber(userEntity.getPhoneNumber())
+        user.setCreatedOn(userEntity.getCreatedOn())
+        user.setUpdatedOn(userEntity.getUpdatedOn())
+        return user
     }
 
     @Override
     UserEntity toUserEntity(User user) {
-        return UserEntity.builder()
-                .id(user.getId())
-                .login(user.getLogin())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .password(user.getPassword())
-                .build()
+        UserEntity userEntity = new UserEntity()
+        userEntity.setId(user.getId())
+        userEntity.setLogin(user.getLogin())
+        userEntity.setFirstName(user.getFirstName())
+        userEntity.setLastName(user.getLastName())
+        userEntity.setEmail(user.getEmail())
+        userEntity.setPhoneNumber(user.getPhoneNumber())
+        userEntity.setPassword(user.getPassword())
+        userEntity.setCreatedOn(user.getCreatedOn())
+        userEntity.setUpdatedOn(user.getUpdatedOn())
+        return userEntity
     }
 }

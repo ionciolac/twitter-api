@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class Post {
+class Post extends Upsert {
     String id
     String userId
     String post

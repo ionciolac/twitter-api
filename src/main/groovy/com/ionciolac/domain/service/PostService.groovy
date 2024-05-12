@@ -28,7 +28,7 @@ class PostService implements PostInPort {
         Optional<Post> optionalPost = postOutPort.getPost(post.getId())
         if (optionalPost.isPresent()) {
             Post dbPost = optionalPost.get()
-            BeanUtils.copyProperties(post, dbPost, "userId")
+            BeanUtils.copyProperties(post, dbPost, "userId", "createdOn")
             return postOutPort.upsertPost(dbPost)
         } else
             throw new ObjectNotFoundException(String.format("Post Not found By Id %s", post.getId()))
