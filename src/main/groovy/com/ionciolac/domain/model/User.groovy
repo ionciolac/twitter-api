@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class User {
+class User extends Upsert {
     String id
     String login
     String firstName
