@@ -6,12 +6,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 import java.util.stream.Collectors
 
-class UserPrincipal {
+class AuthenticatedUser {
+    String id
     String username
     String password
     Collection<? extends GrantedAuthority> authorities
 
-    private UserPrincipal(User user) {
+    private AuthenticatedUser(User user) {
+        this.id = user.getId()
         this.username = user.getUsername()
         this.password = user.getPassword()
         this.authorities = user.getRole().toList().stream().map(role -> {
@@ -19,7 +21,7 @@ class UserPrincipal {
         }).collect(Collectors.toList())
     }
 
-    static UserPrincipal create(User user) {
-        return new UserPrincipal(user)
+    static AuthenticatedUser create(User user) {
+        return new AuthenticatedUser(user)
     }
 }

@@ -1,6 +1,6 @@
 package com.ionciolac.port.outputs
 
-import com.ionciolac.common.model.Post
+import com.ionciolac.domain.model.Post
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 

@@ -5,7 +5,7 @@ import com.ionciolac.adapter.inputs.rest.data.req.post.UpdatePostRequest
 import com.ionciolac.adapter.inputs.rest.data.res.PostResponse
 import com.ionciolac.adapter.inputs.rest.mapper.PostRestMapper
 import com.ionciolac.adapter.inputs.rest.mapper.UserRestMapper
-import com.ionciolac.common.model.Post
+import com.ionciolac.domain.model.Post
 import org.springframework.stereotype.Component
 
 @Component

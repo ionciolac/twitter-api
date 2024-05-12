@@ -1,14 +1,15 @@
 package com.ionciolac.adapter.inputs.rest.adapter
 
 import com.ionciolac.adapter.inputs.rest.data.req.user.CreateUserRequest
-import com.ionciolac.adapter.inputs.rest.data.req.user.UpdateUserRequest
+import com.ionciolac.adapter.inputs.rest.data.req.user.UserRequest
 import com.ionciolac.adapter.inputs.rest.data.res.UserResponse
 import com.ionciolac.adapter.inputs.rest.mapper.UserRestMapper
+import com.ionciolac.common.config.security.AuthenticatedUser
 import com.ionciolac.port.inputs.UserInPort
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @SecurityRequirement(name = "twitter-api")
@@ -24,7 +25,6 @@ class UserRestAdapter {
         this.userInPort = userInPort
     }
 
-    @PreAuthorize("user")
     @PostMapping
     ResponseEntity<UserResponse> createUser(CreateUserRequest createUserRequest) {
         def user = userRestMapper.toUser(createUserRequest)
@@ -34,22 +34,24 @@ class UserRestAdapter {
     }
 
     @PutMapping
-    ResponseEntity<UserResponse> updateUser(UpdateUserRequest updateUserRequest) {
-        def user = userRestMapper.toUser(updateUserRequest)
+    ResponseEntity<UserResponse> updateUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+                                            UserRequest userInfoRequest) {
+        def user = userRestMapper.toUser(userInfoRequest)
+        user.setId(authenticatedUser.getId())
         user = userInPort.updateUser(user)
         def userResponse = userRestMapper.toUserResponse(user)
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK)
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity deleteUser(@PathVariable("id") String id) {
-        userInPort.deleteUser(id)
+    @DeleteMapping
+    ResponseEntity deleteUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+        userInPort.deleteUser(authenticatedUser.getId())
         return new ResponseEntity(HttpStatus.OK)
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<UserResponse> getUser(@PathVariable("id") String id) {
-        def user = userInPort.getUser(id)
+    @GetMapping
+    ResponseEntity<UserResponse> getUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+        def user = userInPort.getUser(authenticatedUser.getId())
         def userResponse = userRestMapper.toUserResponse(user)
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK)
     }

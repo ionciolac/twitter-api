@@ -1,7 +1,7 @@
 package com.ionciolac.adapter.outputs.persistence.mapper
 
 import com.ionciolac.adapter.outputs.persistence.entity.PostEntity
-import com.ionciolac.common.model.Post
+import com.ionciolac.domain.model.Post
 
 interface PostPersistenceMapper {
 

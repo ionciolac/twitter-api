@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class CreateUserRequest extends UserInfoRequest {
+class CreateUserRequest extends UserRequest {
     String password
 }

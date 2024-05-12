@@ -3,7 +3,7 @@ package com.ionciolac.adapter.outputs.persistence.adapter
 import com.ionciolac.adapter.outputs.persistence.entity.PostEntity
 import com.ionciolac.adapter.outputs.persistence.mapper.PostPersistenceMapper
 import com.ionciolac.adapter.outputs.persistence.repository.PostRepository
-import com.ionciolac.common.model.Post
+import com.ionciolac.domain.model.Post
 import com.ionciolac.port.outputs.PostOutPort
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

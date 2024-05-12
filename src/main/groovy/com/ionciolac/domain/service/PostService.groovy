@@ -1,7 +1,7 @@
 package com.ionciolac.domain.service
 
 import com.ionciolac.common.exception.ObjectNotFoundException
-import com.ionciolac.common.model.Post
+import com.ionciolac.domain.model.Post
 import com.ionciolac.port.inputs.PostInPort
 import com.ionciolac.port.outputs.PostOutPort
 import org.springframework.beans.BeanUtils

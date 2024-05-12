@@ -1,6 +1,6 @@
-package com.ionciolac.common.model
+package com.ionciolac.domain.model
 
-
+import com.ionciolac.common.model.Upsert
 import groovy.transform.builder.Builder
 import lombok.AllArgsConstructor
 import lombok.Data

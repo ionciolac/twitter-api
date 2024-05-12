@@ -2,7 +2,7 @@ package com.ionciolac.adapter.outputs.persistence.mapper.impl
 
 import com.ionciolac.adapter.outputs.persistence.entity.PostEntity
 import com.ionciolac.adapter.outputs.persistence.mapper.PostPersistenceMapper
-import com.ionciolac.common.model.Post
+import com.ionciolac.domain.model.Post
 import org.springframework.stereotype.Component
 
 @Component

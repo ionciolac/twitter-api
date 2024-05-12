@@ -60,7 +60,7 @@ class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private Authentication createAuthenticationToken(User user) {
-        UserPrincipal userPrincipal = UserPrincipal.create(user)
+        AuthenticatedUser userPrincipal = AuthenticatedUser.create(user)
         return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities())
     }
 
