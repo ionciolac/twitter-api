@@ -1,7 +1,7 @@
 package com.ionciolac.adapter.inputs.rest.mapper.impl
 
-import com.ionciolac.adapter.inputs.rest.data.req.CreateUserRequest
-import com.ionciolac.adapter.inputs.rest.data.req.UpdateUserRequest
+import com.ionciolac.adapter.inputs.rest.data.req.user.CreateUserRequest
+import com.ionciolac.adapter.inputs.rest.data.req.user.UpdateUserRequest
 import com.ionciolac.adapter.inputs.rest.data.res.UserResponse
 import com.ionciolac.adapter.inputs.rest.mapper.UserRestMapper
 import com.ionciolac.domain.model.User
@@ -11,26 +11,26 @@ import org.springframework.stereotype.Component
 class UserRestMapperImpl implements UserRestMapper {
 
     @Override
-    User toUser(CreateUserRequest userRequest) {
+    User toUser(CreateUserRequest createUserRequest) {
         return User.builder()
-                .login(userRequest.getLogin())
-                .firstName(userRequest.getFirstName())
-                .lastName(userRequest.getLastName())
-                .email(userRequest.getEmail())
-                .phoneNumber(userRequest.getPhoneNumber())
-                .password(userRequest.getPassword())
+                .login(createUserRequest.getLogin())
+                .firstName(createUserRequest.getFirstName())
+                .lastName(createUserRequest.getLastName())
+                .email(createUserRequest.getEmail())
+                .phoneNumber(createUserRequest.getPhoneNumber())
+                .password(createUserRequest.getPassword())
                 .build()
     }
 
     @Override
-    User toUser(UpdateUserRequest userRequest) {
+    User toUser(UpdateUserRequest updateUserRequest) {
         return User.builder()
-                .id(userRequest.getId())
-                .login(userRequest.getLogin())
-                .firstName(userRequest.getFirstName())
-                .lastName(userRequest.getLastName())
-                .email(userRequest.getEmail())
-                .phoneNumber(userRequest.getPhoneNumber())
+                .id(updateUserRequest.getId())
+                .login(updateUserRequest.getLogin())
+                .firstName(updateUserRequest.getFirstName())
+                .lastName(updateUserRequest.getLastName())
+                .email(updateUserRequest.getEmail())
+                .phoneNumber(updateUserRequest.getPhoneNumber())
                 .build()
     }
 

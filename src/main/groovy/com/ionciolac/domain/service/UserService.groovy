@@ -24,7 +24,12 @@ class UserService implements UserInPort {
 
     @Override
     User updateUser(User user) {
-        return userOutPort.upsertUser(user)
+        String userId = user.getId()
+        Optional<User> userFromDB = userOutPort.getUser(userId)
+        if (userFromDB.isPresent())
+            return userOutPort.upsertUser(user)
+        else
+            throw new ObjectNotFoundException(String.format("User with id %s was not found in DB", userId))
     }
 
     @Override
@@ -38,6 +43,6 @@ class UserService implements UserInPort {
         if (dbUser.isPresent())
             return dbUser.get()
         else
-            throw new ObjectNotFoundException("User was not found in DB")
+            throw new ObjectNotFoundException(String.format("User with id %s was not found in DB", id))
     }
 }

@@ -1,5 +1,4 @@
-package com.ionciolac.adapter.inputs.rest.data.req
-
+package com.ionciolac.adapter.inputs.rest.data.res
 
 import groovy.transform.builder.Builder
 import lombok.AllArgsConstructor
@@ -10,10 +9,8 @@ import lombok.NoArgsConstructor
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class UserRequest {
-    String login
-    String firstName
-    String lastName
-    String email
-    String phoneNumber
+class PostResponse {
+    String id
+    String userId
+    String post
 }

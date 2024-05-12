@@ -1,7 +1,7 @@
 package com.ionciolac.adapter.inputs.rest.adapter
 
-import com.ionciolac.adapter.inputs.rest.data.req.CreateUserRequest
-import com.ionciolac.adapter.inputs.rest.data.req.UpdateUserRequest
+import com.ionciolac.adapter.inputs.rest.data.req.user.CreateUserRequest
+import com.ionciolac.adapter.inputs.rest.data.req.user.UpdateUserRequest
 import com.ionciolac.adapter.inputs.rest.data.res.UserResponse
 import com.ionciolac.adapter.inputs.rest.mapper.UserRestMapper
 import com.ionciolac.port.inputs.UserInPort

@@ -1,4 +1,4 @@
-package com.ionciolac.adapter.inputs.rest.data.req
+package com.ionciolac.adapter.inputs.rest.data.req.user
 
 import groovy.transform.builder.Builder
 import lombok.AllArgsConstructor
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class UpdateUserRequest extends UserRequest {
-    String id
+class CreateUserRequest extends UserInfoRequest {
+    String password
 }

@@ -32,19 +32,12 @@ class UserPersistenceAdapter implements UserOutPort {
 
     @Override
     Optional<User> getUser(String id) {
-        Optional<UserEntity> dbUser = userRepository.findById(id)
-        if (dbUser.isPresent())
-            return Optional.ofNullable(userPersistenceMapper.toUser(dbUser.get()))
-        else
-            return Optional.empty()
+        return userRepository.findById(id).map { userPersistenceMapper.toUser(it) }
     }
 
     @Override
     Optional<User> getUser(String login, String email, String phoneNumber) {
-        Optional<UserEntity> dbUser = userRepository.findByLoginOrEmailOrPhoneNumber(login, email, phoneNumber)
-        if (dbUser.isPresent())
-            return Optional.ofNullable(userPersistenceMapper.toUser(dbUser.get()))
-        else
-            return Optional.empty()
+        userRepository.findByLoginOrEmailOrPhoneNumber(login, email, phoneNumber)
+                .map { userPersistenceMapper.toUser(it) }
     }
 }
