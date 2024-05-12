@@ -9,7 +9,7 @@ import java.util.stream.Collectors
 class UserPrincipal {
     String username
     String password
-    Collection<? extends GrantedAuthority> authorities;
+    Collection<? extends GrantedAuthority> authorities
 
     private UserPrincipal(User user) {
         this.username = user.getUsername()
