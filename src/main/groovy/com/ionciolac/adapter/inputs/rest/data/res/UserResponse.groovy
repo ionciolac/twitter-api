@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor
 @NoArgsConstructor
 class UserResponse {
     String id
-    String login
+    String username
     @JsonProperty(value = "first_name")
     String firstName
     @JsonProperty(value = "last_name")

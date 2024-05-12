@@ -5,5 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface UserRepository extends MongoRepository<UserEntity, String> {
 
-    Optional<UserEntity> findByLoginOrEmailOrPhoneNumber(String login, String email, String phoneNumber)
+    Optional<UserEntity> findByUsernameOrEmailOrPhoneNumber(String username, String email, String phoneNumber)
+
+    Optional<UserEntity> findByUsername(String username)
 }

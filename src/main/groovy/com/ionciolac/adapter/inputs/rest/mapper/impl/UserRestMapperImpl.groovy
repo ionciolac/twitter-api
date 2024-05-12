@@ -13,7 +13,7 @@ class UserRestMapperImpl implements UserRestMapper {
     @Override
     User toUser(CreateUserRequest createUserRequest) {
         return User.builder()
-                .login(createUserRequest.getLogin())
+                .username(createUserRequest.getUsername())
                 .firstName(createUserRequest.getFirstName())
                 .lastName(createUserRequest.getLastName())
                 .email(createUserRequest.getEmail())
@@ -26,7 +26,7 @@ class UserRestMapperImpl implements UserRestMapper {
     User toUser(UpdateUserRequest updateUserRequest) {
         return User.builder()
                 .id(updateUserRequest.getId())
-                .login(updateUserRequest.getLogin())
+                .username(updateUserRequest.getUsername())
                 .firstName(updateUserRequest.getFirstName())
                 .lastName(updateUserRequest.getLastName())
                 .email(updateUserRequest.getEmail())
@@ -38,7 +38,7 @@ class UserRestMapperImpl implements UserRestMapper {
     UserResponse toUserResponse(User user) {
         return UserResponse.builder()
                 .id(user.getId())
-                .login(user.getLogin())
+                .username(user.getUsername())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())

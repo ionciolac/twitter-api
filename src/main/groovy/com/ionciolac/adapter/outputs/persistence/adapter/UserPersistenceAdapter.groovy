@@ -36,8 +36,13 @@ class UserPersistenceAdapter implements UserOutPort {
     }
 
     @Override
-    Optional<User> getUser(String login, String email, String phoneNumber) {
-        userRepository.findByLoginOrEmailOrPhoneNumber(login, email, phoneNumber)
+    Optional<User> getUser(String username, String email, String phoneNumber) {
+        userRepository.findByUsernameOrEmailOrPhoneNumber(username, email, phoneNumber)
                 .map { userPersistenceMapper.toUser(it) }
+    }
+
+    @Override
+    Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username).map { userPersistenceMapper.toUser(it) }
     }
 }

@@ -10,5 +10,7 @@ interface UserOutPort {
 
     Optional<User> getUser(String id)
 
-    Optional<User> getUser(String login, String email, String phoneNumber)
+    Optional<User> getUser(String username, String email, String phoneNumber)
+
+    Optional<User> getUserByUsername(String username)
 }

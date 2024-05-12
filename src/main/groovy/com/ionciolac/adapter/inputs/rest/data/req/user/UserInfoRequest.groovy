@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
 class UserInfoRequest {
-    String login
+    String username
     String firstName
     String lastName
     String email

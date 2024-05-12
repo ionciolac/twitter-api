@@ -12,10 +12,11 @@ import lombok.NoArgsConstructor
 @NoArgsConstructor
 class User extends Upsert {
     String id
-    String login
+    String username
     String firstName
     String lastName
     String email
     String phoneNumber
     String password
+    String role
 }

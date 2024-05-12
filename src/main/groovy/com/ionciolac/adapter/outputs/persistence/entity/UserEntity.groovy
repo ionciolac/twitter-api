@@ -17,10 +17,11 @@ class UserEntity extends Upsert {
 
     @Id
     String id
-    String login
+    String username
     String firstName
     String lastName
     String email
     String phoneNumber
     String password
+    String role
 }

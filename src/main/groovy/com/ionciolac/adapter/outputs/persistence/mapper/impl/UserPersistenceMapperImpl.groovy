@@ -12,11 +12,13 @@ class UserPersistenceMapperImpl implements UserPersistenceMapper {
     User toUser(UserEntity userEntity) {
         User user = new User()
         user.setId(userEntity.getId())
-        user.setLogin(userEntity.getLogin())
+        user.setUsername(userEntity.getUsername())
         user.setFirstName(userEntity.getFirstName())
         user.setLastName(userEntity.getLastName())
         user.setEmail(userEntity.getEmail())
         user.setPhoneNumber(userEntity.getPhoneNumber())
+        user.setPassword(userEntity.getPassword())
+        user.setRole(userEntity.getRole())
         user.setCreatedOn(userEntity.getCreatedOn())
         user.setUpdatedOn(userEntity.getUpdatedOn())
         return user
@@ -26,12 +28,13 @@ class UserPersistenceMapperImpl implements UserPersistenceMapper {
     UserEntity toUserEntity(User user) {
         UserEntity userEntity = new UserEntity()
         userEntity.setId(user.getId())
-        userEntity.setLogin(user.getLogin())
+        userEntity.setUsername(user.getUsername())
         userEntity.setFirstName(user.getFirstName())
         userEntity.setLastName(user.getLastName())
         userEntity.setEmail(user.getEmail())
         userEntity.setPhoneNumber(user.getPhoneNumber())
         userEntity.setPassword(user.getPassword())
+        userEntity.setRole(user.getRole())
         userEntity.setCreatedOn(user.getCreatedOn())
         userEntity.setUpdatedOn(user.getUpdatedOn())
         return userEntity
