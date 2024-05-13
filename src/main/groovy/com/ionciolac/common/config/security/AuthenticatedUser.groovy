@@ -21,7 +21,7 @@ class AuthenticatedUser {
         return new AuthenticatedUser(user)
     }
 
-    def getAuthorities(User user) {
+    def getAuthorities = { User user ->
         List<GrantedAuthority> authorities = new ArrayList<>()
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase())
         authorities.add(authority)
