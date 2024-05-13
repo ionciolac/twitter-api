@@ -58,7 +58,7 @@ class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication)
     }
 
-    def createAuthenticationToken(User user) {
+    def createAuthenticationToken = { User user ->
         AuthenticatedUser userPrincipal = AuthenticatedUser.create(user)
         return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities())
     }
@@ -67,7 +67,7 @@ class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         return passwordEncoder().matches(loginPassword, userPassword)
     }
 
-    def decodeBase64(String base64) {
+    def decodeBase64 = { String base64 ->
         byte[] decodeBytes = Base64.getDecoder().decode(base64)
         return new String(decodeBytes)
     }
@@ -77,11 +77,7 @@ class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         return header != null && header.startsWith(BASIC)
     }
 
-    def getHeader(HttpServletRequest request) {
-        return request.getHeader(AUTHORIZATION)
-    }
+    def getHeader = { HttpServletRequest request -> return request.getHeader(AUTHORIZATION) }
 
-    def passwordEncoder() {
-        return new BCryptPasswordEncoder()
-    }
+    def passwordEncoder = { -> return new BCryptPasswordEncoder() }
 }

@@ -62,7 +62,5 @@ class UserService implements UserInPort, SecurityInPort {
             throw new ObjectNotFoundException(String.format("User with username %s was not found in DB", username))
     }
 
-    def passwordEncoder() {
-        return new BCryptPasswordEncoder()
-    }
+    def passwordEncoder = { -> return new BCryptPasswordEncoder() }
 }
