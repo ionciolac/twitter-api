@@ -43,4 +43,10 @@ class PostPersistenceAdapter implements PostOutPort {
                 .findAllByUserId(userId, pageable)
                 .map { { postPersistenceMapper.toPost(it) } }
     }
+
+    @Override
+    Page<Post> getPostsByUsersId(List<String> ids, Pageable pageable) {
+        return postRepository.findAllByUserIdIn(ids, pageable)
+                .map { postPersistenceMapper.toPost(it) }
+    }
 }

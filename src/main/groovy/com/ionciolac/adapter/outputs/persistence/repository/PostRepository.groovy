@@ -8,4 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 interface PostRepository extends MongoRepository<PostEntity, String> {
 
     Page<PostEntity> findAllByUserId(String userId, Pageable pageable)
+
+    Page<PostEntity> findAllByUserIdIn(List<String> userId, Pageable pageable)
 }

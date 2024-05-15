@@ -13,4 +13,6 @@ interface LikeOutPort {
     List<Like> getPostLikes(String id)
 
     Optional<Like> getLikeByUserAndPost(String userId, String postId)
+
+    long getPostLikesCount(String id)
 }

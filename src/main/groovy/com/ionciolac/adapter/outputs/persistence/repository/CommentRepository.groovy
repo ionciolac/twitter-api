@@ -8,4 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 interface CommentRepository extends MongoRepository<CommentEntity, String> {
 
     Page<CommentEntity> findAllByPostId(String id, Pageable pageable)
+
+    long countByPostId(String id)
 }

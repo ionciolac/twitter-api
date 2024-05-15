@@ -13,4 +13,6 @@ interface PostOutPort {
     Optional<Post> getPost(String id)
 
     Page<Post> getPost(String userId, Pageable pageable)
+
+    Page<Post> getPostsByUsersId(List<String> ids, Pageable pageable)
 }

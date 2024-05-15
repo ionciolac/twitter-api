@@ -41,4 +41,9 @@ class CommentPersistenceAdapter implements CommentOutPort {
         return commentRepository.findAllByPostId(id, pageable)
                 .map { commentPersistenceMapper.toComment(it) }
     }
+
+    @Override
+    long getPostCommentsCount(String id) {
+        return commentRepository.countByPostId(id)
+    }
 }

@@ -48,4 +48,9 @@ class LikePersistenceAdapter implements LikeOutPort {
         return likeRepository.findByUserIdAndPostId(userId, postId)
                 .map { likePersistenceMapper.toLike(it) }
     }
+
+    @Override
+    long getPostLikesCount(String id) {
+        return likeRepository.countByPostId(id)
+    }
 }

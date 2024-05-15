@@ -13,4 +13,6 @@ interface FollowerOutPort {
     Page<Follower> getUserFollowers(String id, Pageable pageable)
 
     Optional<Follower> getFollowerByFollowerIdAndFollowingId(String followerId, String followingId)
+
+    List<String> getUserFollowers(String id)
 }

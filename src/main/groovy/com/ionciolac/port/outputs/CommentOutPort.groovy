@@ -13,4 +13,6 @@ interface CommentOutPort {
     Optional<Comment> getComment(String id)
 
     Page<Comment> getPostComments(String id, Pageable pageable)
+
+    long getPostCommentsCount(String id)
 }

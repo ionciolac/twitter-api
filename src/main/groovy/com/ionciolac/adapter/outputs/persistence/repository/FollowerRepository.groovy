@@ -10,4 +10,6 @@ interface FollowerRepository extends MongoRepository<FollowerEntity, String> {
     Page<FollowerEntity> findAllByFollowerId(String id, Pageable pageable)
 
     Optional<FollowerEntity> findByFollowerIdAndFollowingId(String followerId, String followingId)
+
+    List<FollowerEntity> findAllByFollowerId(String followerId)
 }

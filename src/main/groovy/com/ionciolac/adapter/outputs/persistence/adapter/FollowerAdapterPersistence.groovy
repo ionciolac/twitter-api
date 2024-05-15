@@ -42,4 +42,12 @@ class FollowerAdapterPersistence implements FollowerOutPort {
         return followerRepository.findByFollowerIdAndFollowingId(followerId, followingId)
                 .map { followerPersistenceMapper.toFollower(it) }
     }
+
+    @Override
+    List<String> getUserFollowers(String id) {
+        return followerRepository.findAllByFollowerId(id)
+                .stream()
+                .map { it.getFollowingId() }
+                .toList()
+    }
 }

@@ -8,4 +8,6 @@ interface LikeRepository extends MongoRepository<LikeEntity, String> {
     List<LikeEntity> findAllByPostId(String id)
 
     Optional<LikeEntity> findByUserIdAndPostId(String userId, String postId)
+
+    long countByPostId(String id)
 }
