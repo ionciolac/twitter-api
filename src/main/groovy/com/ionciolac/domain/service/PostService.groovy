@@ -1,6 +1,7 @@
 package com.ionciolac.domain.service
 
 import com.ionciolac.common.exception.ObjectNotFoundException
+import com.ionciolac.common.util.CommonMessage
 import com.ionciolac.domain.model.Post
 import com.ionciolac.port.inputs.PostInPort
 import com.ionciolac.port.outputs.PostOutPort
@@ -24,13 +25,14 @@ class PostService implements PostInPort {
 
     @Override
     Post updatePost(String authorizedUserId, Post post) {
-        Optional<Post> optionalPost = postOutPort.getPost(post.getId())
+        String id = post.getId()
+        Optional<Post> optionalPost = postOutPort.getPost(id)
         if (optionalPost.isPresent()) {
             Post dbPost = optionalPost.get()
             dbPost.setPost(post.getPost())
             return postOutPort.upsertPost(dbPost)
         } else
-            throw new ObjectNotFoundException(String.format("Post Not found By Id %s", post.getId()))
+            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.POST, id))
     }
 
     @Override
@@ -44,7 +46,7 @@ class PostService implements PostInPort {
         if (postFromDB.isPresent())
             return postFromDB.get()
         else
-            throw new ObjectNotFoundException(String.format("Post Not found By Id %s", id))
+            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.POST, id))
     }
 
     @Override

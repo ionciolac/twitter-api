@@ -1,6 +1,7 @@
 package com.ionciolac.domain.service
 
 import com.ionciolac.common.exception.ObjectNotFoundException
+import com.ionciolac.common.util.CommonMessage
 import com.ionciolac.domain.model.Comment
 import com.ionciolac.port.inputs.CommentInPort
 import com.ionciolac.port.outputs.CommentOutPort
@@ -25,14 +26,14 @@ class CommentService implements CommentInPort {
 
     @Override
     Comment updateComment(String authorizedUserId, Comment comment) {
-        String commentId = comment.getId()
-        Optional<Comment> dbOptionalComment = commentOutPort.getComment(commentId)
+        String id = comment.getId()
+        Optional<Comment> dbOptionalComment = commentOutPort.getComment(id)
         if (dbOptionalComment.isPresent()) {
             Comment dbComment = dbOptionalComment.get()
             dbComment.setComment(comment.getComment())
             return commentOutPort.upsertComment(dbComment)
         }
-        throw new ObjectNotFoundException(String.format("Comment Not found By Id %s", commentId))
+        throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.COMMENT, id))
     }
 
     @Override
@@ -46,7 +47,7 @@ class CommentService implements CommentInPort {
         if (dbOptionalComment.isPresent()) {
             return dbOptionalComment.get()
         } else
-            throw new ObjectNotFoundException(String.format("Comment was Not found By Id %s", id))
+            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.COMMENT, id))
     }
 
     @Override

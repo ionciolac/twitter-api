@@ -1,6 +1,7 @@
 package com.ionciolac.domain.service
 
 import com.ionciolac.common.exception.ObjectAlreadyExistException
+import com.ionciolac.common.util.CommonMessage
 import com.ionciolac.domain.model.Follower
 import com.ionciolac.port.inputs.FollowerInPort
 import com.ionciolac.port.outputs.FollowerOutPort
@@ -24,7 +25,7 @@ class FollowerService implements FollowerInPort {
         Optional<Follower> dbOptionalFollower = followerOutPort
                 .getFollowerByFollowerIdAndFollowingId(followerId, followingId)
         if (dbOptionalFollower.isPresent()) {
-            throw new ObjectAlreadyExistException(String.format("User %s already following this user %s", followerId, followingId))
+            throw new ObjectAlreadyExistException(String.format(CommonMessage.USER_ALREADY_FOLLOWING_USER, followerId, followingId))
         } else
             return followerOutPort.createFollower(follower)
     }

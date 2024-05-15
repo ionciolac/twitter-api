@@ -2,6 +2,7 @@ package com.ionciolac.domain.service
 
 import com.ionciolac.common.exception.ObjectAlreadyExistException
 import com.ionciolac.common.exception.ObjectNotFoundException
+import com.ionciolac.common.util.CommonMessage
 import com.ionciolac.domain.model.Like
 import com.ionciolac.port.inputs.LikeInPort
 import com.ionciolac.port.outputs.LikeOutPort
@@ -22,7 +23,7 @@ class LikeService implements LikeInPort {
         String postId = like.getPostId()
         Optional<Like> dbOptionalLike = likeOutPort.getLikeByUserAndPost(userId, postId)
         if (dbOptionalLike.isPresent())
-            throw new ObjectAlreadyExistException(String.format("Like to the post %s by user %s already exist", postId, userId))
+            throw new ObjectAlreadyExistException(String.format(CommonMessage.USER_ALREADY_LIKED_POST, userId, postId))
         else
             return likeOutPort.createLike(like)
     }
@@ -38,7 +39,7 @@ class LikeService implements LikeInPort {
         if (dbOptionalLike.isPresent())
             return dbOptionalLike.get()
         else
-            throw new ObjectNotFoundException(String.format("Like was Not found By Id %s", id))
+            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.LIKE, id))
     }
 
     @Override
