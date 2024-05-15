@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 
 @SecurityRequirement(name = "twitter-api")
 @RestController
-@RequestMapping("user")
+@RequestMapping
 class UserRestAdapter {
 
     private final UserRestMapper userRestMapper
@@ -25,7 +25,7 @@ class UserRestAdapter {
         this.userInPort = userInPort
     }
 
-    @PostMapping
+    @PostMapping("user")
     ResponseEntity<UserResponse> createUser(CreateUserRequest createUserRequest) {
         def user = userRestMapper.toUser(createUserRequest)
         user = userInPort.createUser(user)
@@ -33,7 +33,7 @@ class UserRestAdapter {
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED)
     }
 
-    @PutMapping
+    @PutMapping("user")
     ResponseEntity<UserResponse> updateUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
                                             UserRequest userInfoRequest) {
         def user = userRestMapper.toUser(userInfoRequest)
@@ -43,13 +43,13 @@ class UserRestAdapter {
         return new ResponseEntity<UserResponse>(userResponse, HttpStatus.OK)
     }
 
-    @DeleteMapping
+    @DeleteMapping("user")
     ResponseEntity deleteUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         userInPort.deleteUser(authenticatedUser.getId())
         return new ResponseEntity(HttpStatus.OK)
     }
 
-    @GetMapping
+    @GetMapping("user")
     ResponseEntity<UserResponse> getUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
         def user = userInPort.getUser(authenticatedUser.getId())
         def userResponse = userRestMapper.toUserResponse(user)

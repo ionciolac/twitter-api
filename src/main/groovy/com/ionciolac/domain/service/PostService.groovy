@@ -4,7 +4,6 @@ import com.ionciolac.common.exception.ObjectNotFoundException
 import com.ionciolac.domain.model.Post
 import com.ionciolac.port.inputs.PostInPort
 import com.ionciolac.port.outputs.PostOutPort
-import org.springframework.beans.BeanUtils
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -28,7 +27,7 @@ class PostService implements PostInPort {
         Optional<Post> optionalPost = postOutPort.getPost(post.getId())
         if (optionalPost.isPresent()) {
             Post dbPost = optionalPost.get()
-            BeanUtils.copyProperties(post, dbPost, "userId", "createdOn")
+            dbPost.setPost(post.getPost())
             return postOutPort.upsertPost(dbPost)
         } else
             throw new ObjectNotFoundException(String.format("Post Not found By Id %s", post.getId()))

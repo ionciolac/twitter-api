@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 
 @SecurityRequirement(name = "twitter-api")
 @RestController
-@RequestMapping("post")
+@RequestMapping
 class PostRestAdapter {
 
     PostRestMapper postRestMapper
@@ -27,7 +27,7 @@ class PostRestAdapter {
         this.postInPort = postInPort
     }
 
-    @PostMapping
+    @PostMapping("post")
     ResponseEntity<PostResponse> createPost(CreatePostRequest createPostRequest) {
         def post = postRestMapper.toPost(createPostRequest)
         post = postInPort.createPost(post)
@@ -35,7 +35,7 @@ class PostRestAdapter {
         return new ResponseEntity<PostResponse>(userResponse, HttpStatus.CREATED)
     }
 
-    @PutMapping
+    @PutMapping("post")
     ResponseEntity<PostResponse> updatePost(UpdatePostRequest updatePostRequest) {
         def post = postRestMapper.toPost(updatePostRequest)
         post = postInPort.updatePost(post)
@@ -43,20 +43,20 @@ class PostRestAdapter {
         return new ResponseEntity<PostResponse>(userResponse, HttpStatus.OK)
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("post/{id}")
     ResponseEntity deletePost(@PathVariable("id") String id) {
         postInPort.deletePost(id)
         return new ResponseEntity(HttpStatus.OK)
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("post/{id}")
     ResponseEntity<PostResponse> getPost(@PathVariable("id") String id) {
         def post = postInPort.getPost(id)
         def postResponse = postRestMapper.toPostResponse(post)
         return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK)
     }
 
-    @GetMapping()
+    @GetMapping("post")
     ResponseEntity<Page<PostResponse>> getUserPosts(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
                                                     Pageable pageable) {
         def userPosts = postInPort.getPost(authenticatedUser.getId(), pageable)

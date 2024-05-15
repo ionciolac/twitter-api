@@ -6,7 +6,6 @@ import com.ionciolac.domain.model.User
 import com.ionciolac.port.inputs.SecurityInPort
 import com.ionciolac.port.inputs.UserInPort
 import com.ionciolac.port.outputs.UserOutPort
-import org.springframework.beans.BeanUtils
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -33,7 +32,11 @@ class UserService implements UserInPort, SecurityInPort {
         Optional<User> userFromDB = userOutPort.getUser(userId)
         if (userFromDB.isPresent()) {
             User dbUser = userFromDB.get()
-            BeanUtils.copyProperties(user, dbUser, "createdOn", "password", "role")
+            dbUser.setUsername(user.getUsername())
+            dbUser.setFirstName(user.getFirstName())
+            dbUser.setLastName(user.getLastName())
+            dbUser.setEmail(user.getEmail())
+            dbUser.setPhoneNumber(user.getPhoneNumber())
             return userOutPort.upsertUser(dbUser)
         } else
             throw new ObjectNotFoundException(String.format("User with id %s was not found in DB", userId))
