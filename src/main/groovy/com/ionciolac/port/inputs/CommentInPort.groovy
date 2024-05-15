@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable
 
 interface CommentInPort {
 
-    Comment createComment(Comment comment)
+    Comment createComment(String authorizedUserId, Comment comment)
 
     Comment updateComment(String authorizedUserId, Comment comment)
 

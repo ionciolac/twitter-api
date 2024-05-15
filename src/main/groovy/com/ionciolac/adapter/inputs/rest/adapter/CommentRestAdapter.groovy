@@ -28,9 +28,10 @@ class CommentRestAdapter {
     }
 
     @PostMapping("/comment")
-    ResponseEntity<CommentResponse> createComment(CreateCommentRequest createCommentRequest) {
+    ResponseEntity<CommentResponse> createComment(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+                                                  CreateCommentRequest createCommentRequest) {
         def comment = commentRestMapper.toComment(createCommentRequest)
-        comment = commentInPort.createComment(comment)
+        comment = commentInPort.createComment(authenticatedUser.getId(), comment)
         def commentResponse = commentRestMapper.toCommentResponse(comment)
         return new ResponseEntity<CommentResponse>(commentResponse, HttpStatus.CREATED)
     }

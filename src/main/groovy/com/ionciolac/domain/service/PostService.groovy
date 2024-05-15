@@ -18,12 +18,12 @@ class PostService implements PostInPort {
     }
 
     @Override
-    Post createPost(Post post) {
+    Post createPost(String authorizedUserId, Post post) {
         return postOutPort.upsertPost(post)
     }
 
     @Override
-    Post updatePost(Post post) {
+    Post updatePost(String authorizedUserId, Post post) {
         Optional<Post> optionalPost = postOutPort.getPost(post.getId())
         if (optionalPost.isPresent()) {
             Post dbPost = optionalPost.get()
@@ -34,12 +34,12 @@ class PostService implements PostInPort {
     }
 
     @Override
-    void deletePost(String id) {
+    void deletePost(String authorizedUserId, String id) {
         postOutPort.deletePost(id)
     }
 
     @Override
-    Post getPost(String id) {
+    Post getPost(String authorizedUserId, String id) {
         Optional<Post> postFromDB = postOutPort.getPost(id)
         if (postFromDB.isPresent())
             return postFromDB.get()
@@ -48,7 +48,7 @@ class PostService implements PostInPort {
     }
 
     @Override
-    Page<Post> getPost(String userId, Pageable pageable) {
-        return postOutPort.getPost(userId, pageable)
+    Page<Post> getPostUser(String authorizedUserId, Pageable pageable) {
+        return postOutPort.getPost(authorizedUserId, pageable)
     }
 }

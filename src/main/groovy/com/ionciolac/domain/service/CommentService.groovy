@@ -19,7 +19,7 @@ class CommentService implements CommentInPort {
     }
 
     @Override
-    Comment createComment(Comment comment) {
+    Comment createComment(String authorizedUserId, Comment comment) {
         return commentOutPort.upsertComment(comment)
     }
 

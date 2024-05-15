@@ -28,30 +28,34 @@ class PostRestAdapter {
     }
 
     @PostMapping("post")
-    ResponseEntity<PostResponse> createPost(CreatePostRequest createPostRequest) {
+    ResponseEntity<PostResponse> createPost(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+                                            CreatePostRequest createPostRequest) {
         def post = postRestMapper.toPost(createPostRequest)
-        post = postInPort.createPost(post)
+        post = postInPort.createPost(authenticatedUser.getId(), post)
         def userResponse = postRestMapper.toPostResponse(post)
         return new ResponseEntity<PostResponse>(userResponse, HttpStatus.CREATED)
     }
 
     @PutMapping("post")
-    ResponseEntity<PostResponse> updatePost(UpdatePostRequest updatePostRequest) {
+    ResponseEntity<PostResponse> updatePost(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+                                            UpdatePostRequest updatePostRequest) {
         def post = postRestMapper.toPost(updatePostRequest)
-        post = postInPort.updatePost(post)
+        post = postInPort.updatePost(authenticatedUser.getId(), post)
         def userResponse = postRestMapper.toPostResponse(post)
         return new ResponseEntity<PostResponse>(userResponse, HttpStatus.OK)
     }
 
     @DeleteMapping("post/{id}")
-    ResponseEntity deletePost(@PathVariable("id") String id) {
-        postInPort.deletePost(id)
+    ResponseEntity deletePost(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+                              @PathVariable("id") String id) {
+        postInPort.deletePost(authenticatedUser.getId(), id)
         return new ResponseEntity(HttpStatus.OK)
     }
 
     @GetMapping("post/{id}")
-    ResponseEntity<PostResponse> getPost(@PathVariable("id") String id) {
-        def post = postInPort.getPost(id)
+    ResponseEntity<PostResponse> getPost(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
+                                         @PathVariable("id") String id) {
+        def post = postInPort.getPost(authenticatedUser.getId(), id)
         def postResponse = postRestMapper.toPostResponse(post)
         return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK)
     }
@@ -59,7 +63,7 @@ class PostRestAdapter {
     @GetMapping("post")
     ResponseEntity<Page<PostResponse>> getUserPosts(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
                                                     Pageable pageable) {
-        def userPosts = postInPort.getPost(authenticatedUser.getId(), pageable)
+        def userPosts = postInPort.getPostUser(authenticatedUser.getId(), pageable)
                 .map { val -> postRestMapper.toPostResponse(val) }
         return new ResponseEntity<Page<PostResponse>>(userPosts, HttpStatus.OK)
     }

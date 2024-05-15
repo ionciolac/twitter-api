@@ -6,13 +6,13 @@ import org.springframework.data.domain.Pageable
 
 interface PostInPort {
 
-    Post createPost(Post post)
+    Post createPost(String authorizedUserId, Post post)
 
-    Post updatePost(Post post)
+    Post updatePost(String authorizedUserId, Post post)
 
-    void deletePost(String id)
+    void deletePost(String authorizedUserId, String id)
 
-    Post getPost(String id)
+    Post getPost(String authorizedUserId, String id)
 
-    Page<Post> getPost(String userId, Pageable pageable)
+    Page<Post> getPostUser(String authorizedUserId, Pageable pageable)
 }
