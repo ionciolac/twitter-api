@@ -18,7 +18,7 @@ class SecurityService implements SecurityInPort {
 
     @Override
     User getUserByUsername(String username) {
-        Optional<User> dbUser = userOutPort.getUserByUsername(username)
+        def dbUser = userOutPort.getUserByUsername(username)
         if (dbUser.isPresent())
             return dbUser.get()
         else

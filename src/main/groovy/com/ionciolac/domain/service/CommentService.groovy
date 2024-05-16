@@ -26,8 +26,8 @@ class CommentService implements CommentInPort {
 
     @Override
     Comment updateComment(String authorizedUserId, Comment comment) {
-        String id = comment.getId()
-        Optional<Comment> dbOptionalComment = commentOutPort.getComment(id)
+        def id = comment.getId()
+        def dbOptionalComment = commentOutPort.getComment(id)
         if (dbOptionalComment.isPresent()) {
             Comment dbComment = dbOptionalComment.get()
             dbComment.setComment(comment.getComment())
@@ -43,7 +43,7 @@ class CommentService implements CommentInPort {
 
     @Override
     Comment getComment(String authorizedUserId, String id) {
-        Optional<Comment> dbOptionalComment = commentOutPort.getComment(id)
+        def dbOptionalComment = commentOutPort.getComment(id)
         if (dbOptionalComment.isPresent()) {
             return dbOptionalComment.get()
         } else

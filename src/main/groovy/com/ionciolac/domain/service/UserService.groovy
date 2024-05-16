@@ -49,7 +49,7 @@ class UserService implements UserInPort {
 
     @Override
     User getUser(String id) {
-        Optional<User> dbUser = userOutPort.getUser(id)
+        def dbUser = userOutPort.getUser(id)
         if (dbUser.isPresent())
             return dbUser.get()
         else

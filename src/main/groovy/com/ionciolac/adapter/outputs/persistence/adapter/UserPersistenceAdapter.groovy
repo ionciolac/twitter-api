@@ -1,6 +1,6 @@
 package com.ionciolac.adapter.outputs.persistence.adapter
 
-import com.ionciolac.adapter.outputs.persistence.entity.UserEntity
+
 import com.ionciolac.adapter.outputs.persistence.mapper.UserPersistenceMapper
 import com.ionciolac.adapter.outputs.persistence.repository.UserRepository
 import com.ionciolac.domain.model.User
@@ -23,7 +23,7 @@ class UserPersistenceAdapter implements UserOutPort {
 
     @Override
     User upsertUser(User user) {
-        UserEntity userEntity = userPersistenceMapper.toUserEntity(user)
+        def userEntity = userPersistenceMapper.toUserEntity(user)
         userEntity = userRepository.save(userEntity)
         return userPersistenceMapper.toUser(userEntity)
     }

@@ -20,9 +20,9 @@ class FollowerService implements FollowerInPort {
 
     @Override
     Follower createFollower(String authorizedUserId, Follower follower) {
-        String followerId = follower.getFollowerId()
-        String followingId = follower.getFollowingId()
-        Optional<Follower> dbOptionalFollower = followerOutPort
+        def followerId = follower.getFollowerId()
+        def followingId = follower.getFollowingId()
+        def dbOptionalFollower = followerOutPort
                 .getFollowerByFollowerIdAndFollowingId(followerId, followingId)
         if (dbOptionalFollower.isPresent()) {
             throw new ObjectAlreadyExistException(String.format(CommonMessage.USER_ALREADY_FOLLOWING_USER, followerId, followingId))

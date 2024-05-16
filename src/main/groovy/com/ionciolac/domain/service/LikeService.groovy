@@ -19,9 +19,9 @@ class LikeService implements LikeInPort {
 
     @Override
     Like createLike(String authorizedUserId, Like like) {
-        String userId = like.getUserId()
-        String postId = like.getPostId()
-        Optional<Like> dbOptionalLike = likeOutPort.getLikeByUserAndPost(userId, postId)
+        def userId = like.getUserId()
+        def postId = like.getPostId()
+        def dbOptionalLike = likeOutPort.getLikeByUserAndPost(userId, postId)
         if (dbOptionalLike.isPresent())
             throw new ObjectAlreadyExistException(String.format(CommonMessage.USER_ALREADY_LIKED_POST, userId, postId))
         else
@@ -35,7 +35,7 @@ class LikeService implements LikeInPort {
 
     @Override
     Like getLike(String authorizedUserId, String id) {
-        Optional<Like> dbOptionalLike = likeOutPort.getLike(id)
+        def dbOptionalLike = likeOutPort.getLike(id)
         if (dbOptionalLike.isPresent())
             return dbOptionalLike.get()
         else

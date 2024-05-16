@@ -25,10 +25,10 @@ class PostService implements PostInPort {
 
     @Override
     Post updatePost(String authorizedUserId, Post post) {
-        String id = post.getId()
-        Optional<Post> optionalPost = postOutPort.getPost(id)
+        def id = post.getId()
+        def optionalPost = postOutPort.getPost(id)
         if (optionalPost.isPresent()) {
-            Post dbPost = optionalPost.get()
+            def dbPost = optionalPost.get()
             dbPost.setPost(post.getPost())
             return postOutPort.upsertPost(dbPost)
         } else
@@ -42,7 +42,7 @@ class PostService implements PostInPort {
 
     @Override
     Post getPost(String authorizedUserId, String id) {
-        Optional<Post> postFromDB = postOutPort.getPost(id)
+        def postFromDB = postOutPort.getPost(id)
         if (postFromDB.isPresent())
             return postFromDB.get()
         else
