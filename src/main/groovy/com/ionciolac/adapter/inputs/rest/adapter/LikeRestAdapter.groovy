@@ -37,6 +37,7 @@ class LikeRestAdapter {
     ResponseEntity deleteLike(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
                               @PathVariable("id") String id) {
         likeInPort.deleteLike(authenticatedUser.getId(), id)
+        return new ResponseEntity<>(HttpStatus.OK)
     }
 
     @GetMapping("/like/{id}")
