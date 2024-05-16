@@ -10,12 +10,9 @@ import lombok.NoArgsConstructor
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-class UserResponse {
+class SearchResponse {
 
     String id
-    String username
     String firstName
     String lastName
-    String email
-    String phoneNumber
 }
