@@ -1,7 +1,6 @@
 # How to start up app - Very important make sure you have installed **gradle** and **docker** where you will start the application
 
-> clone on your machine 
-> open in terminal 
+> clone on your machine project and open in terminal project
 ![terminal_twitter_api.png](readme-mg/terminal_twitter_api.png)
 
 > run command: **gradle build**
