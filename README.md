@@ -22,7 +22,6 @@
 > User is created without authorization with this endpoint:  
 ![create_user.png](readme-mg/create_user.png)
 
-
 # Authorization for Swagger
 
 > For authorization click Authorize Button
