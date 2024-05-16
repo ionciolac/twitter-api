@@ -5,6 +5,4 @@ spring:
     name: twitter-api
   data:
     mongodb:
-      host: ${DB_HOS:localhost}
-      port: ${DB-PORT:27070}
-      database: ${DB-DATABASE:twitter_db}
+      uri: mongodb://${MONGO-HOST:localhost:27017}/${MONGO-DB-NAME:twitter_db}

@@ -1,19 +1,25 @@
 version: "3.8"
 services:
-  db:
+  mongo:
     image: mongo:latest
-    container_name: "twitter_db"
+    container_name: twitter-db
     ports:
-      - 27070:27017
-  backend:
+      - "27017:27017"
+    hostname: mongo
+  spring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: twitter-app
+    hostname: spring
+    ports:
+      - "8080:8080"
     depends_on:
-      - db
-    build: .
-    container_name: twitter_app
-    ports:
-      - 8080:8080
+      - mongo
+    links:
+      - mongo
     environment:
-      DB_HOST: db
-      DB-PORT: 27070
-      DB-DATABASE: twitter_db
+      SPRING_APPLICATION_JSON: '{
+                "spring.data.mongodb.uri" : "mongodb://mongo:27017/twitter_db"
+              }'
     restart: always
