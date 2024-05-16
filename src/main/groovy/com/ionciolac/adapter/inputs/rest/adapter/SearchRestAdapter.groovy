@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -30,7 +31,7 @@ class SearchRestAdapter {
 
     @GetMapping("/search-user")
     ResponseEntity<Page<SearchResponse>> searchUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                    SearchRequest searchRequest) {
+                                                    @RequestBody SearchRequest searchRequest) {
         def pageable = getPageable(searchRequest)
         def response = searchInPort.searchUser(authenticatedUser.getId(), searchRequest.getFirstName(),
                 searchRequest.getLastName(), pageable)

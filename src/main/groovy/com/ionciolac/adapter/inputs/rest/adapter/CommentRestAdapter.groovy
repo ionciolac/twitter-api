@@ -29,7 +29,7 @@ class CommentRestAdapter {
 
     @PostMapping("/comment")
     ResponseEntity<CommentResponse> createComment(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                  CreateCommentRequest createCommentRequest) {
+                                                  @RequestBody CreateCommentRequest createCommentRequest) {
         def comment = commentRestMapper.toComment(createCommentRequest)
         comment = commentInPort.createComment(authenticatedUser.getId(), comment)
         def commentResponse = commentRestMapper.toCommentResponse(comment)
@@ -38,7 +38,7 @@ class CommentRestAdapter {
 
     @PutMapping("/comment")
     ResponseEntity<CommentResponse> updateComment(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                  UpdateCommentRequest updateCommentRequest) {
+                                                  @RequestBody UpdateCommentRequest updateCommentRequest) {
         def comment = commentRestMapper.toComment(updateCommentRequest)
         comment = commentInPort.updateComment(authenticatedUser.getId(), comment)
         def commentResponse = commentRestMapper.toCommentResponse(comment)
@@ -62,7 +62,8 @@ class CommentRestAdapter {
 
     @GetMapping("post/{id}/comment")
     ResponseEntity<Page<CommentResponse>> getPostComments(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                          @PathVariable("id") String id, Pageable pageable) {
+                                                          @PathVariable("id") String id,
+                                                          @RequestBody Pageable pageable) {
         def commentResponse = commentInPort
                 .getPostComment(authenticatedUser.getId(), id, pageable)
                 .map { commentRestMapper.toCommentResponse(it) }

@@ -26,7 +26,7 @@ class LikeRestAdapter {
 
     @PostMapping("/like")
     ResponseEntity<LikeResponse> createLike(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                            LikeRequest likeRequest) {
+                                            @RequestBody LikeRequest likeRequest) {
         def like = likeRestMapper.toLike(likeRequest)
         like = likeInPort.createLike(authenticatedUser.getId(), like)
         def likeResponse = likeRestMapper.toLikeResponse(like)

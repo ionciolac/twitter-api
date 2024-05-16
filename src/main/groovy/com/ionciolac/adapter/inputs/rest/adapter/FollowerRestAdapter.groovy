@@ -28,7 +28,7 @@ class FollowerRestAdapter {
 
     @PostMapping("/follow")
     ResponseEntity<FollowerResponse> createFollower(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                    FollowerRequest followerRequest) {
+                                                    @RequestBody FollowerRequest followerRequest) {
         def follower = followerRestMapper.toFollower(followerRequest)
         follower = followerInPort.createFollower(authenticatedUser.getId(), follower)
         def followerResponse = followerRestMapper.toFollowerResponse(follower)
@@ -44,7 +44,7 @@ class FollowerRestAdapter {
 
     @GetMapping("/my-followers")
     ResponseEntity<Page<FollowerResponse>> myFollowers(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                       Pageable pageable) {
+                                                       @RequestBody Pageable pageable) {
         def followers = followerInPort.getUserFollowers(authenticatedUser.getId(), pageable)
                 .map { followerRestMapper.toFollowerResponse(it) }
                 .toList()
