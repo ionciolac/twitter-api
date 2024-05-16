@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  db:
+    image: mongo:latest
+    container_name: "twitter_db"
+    ports:
+      - 27070:27017
+  backend:
+    depends_on:
+      - db
+    build: .
+    container_name: twitter_app
+    ports:
+      - 8080:8080
+    environment:
+      DB_HOST: db
+      DB-PORT: 27070
+      DB-DATABASE: twitter_db
+    restart: always
