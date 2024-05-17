@@ -16,7 +16,7 @@
 
 > Swagger link: http://localhost:8080/swagger-ui/index.html
 
-> You can use API endpoints only if already are registered and authorized. At the moment for authorization is used **Basic Authorization** 
+> You can use API endpoints only if you already are registered and authorized. At the moment for authorization is used **Basic Authorization** 
 
 # Create User 
 > User is created without authorization with this endpoint:  
