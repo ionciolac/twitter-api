@@ -49,13 +49,7 @@ class PostService implements PostInPort {
 
     @Override
     Post getPost(String authorizedUserId, String id) {
-        def post = getDBPost(id)
-        if (post.getUserId() == authorizedUserId) {
-            return post
-        } else {
-            String msg = String.format(CommonMessage.FOREIGN_MESSAGE, CommonMessage.VIEW, CommonMessage.POST)
-            throw new ObjectNotFoundException(msg)
-        }
+        return getDBPost(id)
     }
 
     @Override
