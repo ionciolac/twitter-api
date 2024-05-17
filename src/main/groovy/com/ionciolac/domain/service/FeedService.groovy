@@ -42,19 +42,19 @@ class FeedService implements FeedInPort {
         return getUserFeed(userId, pageable)
     }
 
-    def getUserFeed(String userId, Pageable pageable) {
+    private def getUserFeed(String userId, Pageable pageable) {
         def userIds = followerOutPort.getUserFollowers(userId)
         return postOutPort.getPostsByUsersId(userIds, pageable)
                 .map { feedServiceMapper.toFeed(it) }
-                .map {
-                    {
-                        PostMeta postMeta = PostMeta.builder()
-                                .commentCount(commentOutPort.getPostCommentsCount(it.getId()))
-                                .likeCount(likeOutPort.getPostLikesCount(it.getId()))
-                                .build()
-                        it.setPostMeta(postMeta)
-                        return it
-                    }
-                }
+                .map { return setPostMeta(it) }
+    }
+
+    private def setPostMeta(Feed feed) {
+        PostMeta postMeta = PostMeta.builder()
+                .commentCount(commentOutPort.getPostCommentsCount(feed.getId()))
+                .likeCount(likeOutPort.getPostLikesCount(feed.getId()))
+                .build()
+        feed.setPostMeta(postMeta)
+        return feed
     }
 }
