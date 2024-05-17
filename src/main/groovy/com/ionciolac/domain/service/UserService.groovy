@@ -28,18 +28,13 @@ class UserService implements UserInPort {
 
     @Override
     User updateUser(User user) {
-        String id = user.getId()
-        Optional<User> userFromDB = userOutPort.getUser(id)
-        if (userFromDB.isPresent()) {
-            User dbUser = userFromDB.get()
-            dbUser.setUsername(user.getUsername())
-            dbUser.setFirstName(user.getFirstName())
-            dbUser.setLastName(user.getLastName())
-            dbUser.setEmail(user.getEmail())
-            dbUser.setPhoneNumber(user.getPhoneNumber())
-            return userOutPort.upsertUser(dbUser)
-        } else
-            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.USER, id))
+        User dbUser = getDBUser(user.getId())
+        dbUser.setUsername(user.getUsername())
+        dbUser.setFirstName(user.getFirstName())
+        dbUser.setLastName(user.getLastName())
+        dbUser.setEmail(user.getEmail())
+        dbUser.setPhoneNumber(user.getPhoneNumber())
+        return userOutPort.upsertUser(dbUser)
     }
 
     @Override
@@ -49,12 +44,18 @@ class UserService implements UserInPort {
 
     @Override
     User getUser(String id) {
+        return getDBUser(id)
+    }
+
+    private def passwordEncoder() { return new BCryptPasswordEncoder() }
+
+    private def getDBUser(String id) {
         def dbUser = userOutPort.getUser(id)
         if (dbUser.isPresent())
             return dbUser.get()
-        else
-            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.USER, id))
+        else {
+            String msg = String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.USER, id)
+            throw new ObjectNotFoundException(msg)
+        }
     }
-
-    def passwordEncoder = { -> return new BCryptPasswordEncoder() }
 }
