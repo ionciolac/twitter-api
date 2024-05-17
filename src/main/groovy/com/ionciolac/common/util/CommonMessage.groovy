@@ -7,7 +7,6 @@ class CommonMessage {
     static final def USER = "User"
     static final def DELETE = "Delete"
     static final def EDIT = "Edit"
-    static final def VIEW = "View"
     static final def USER_ALREADY_IS_REGISTERED = "User with same username, email or phone already is registered"
     static final def NOT_FOUND_MESSAGE = "%s was not found in DB by id %s"
     static final def USER_ALREADY_FOLLOWING_USER = "User %s already following this user %s"
