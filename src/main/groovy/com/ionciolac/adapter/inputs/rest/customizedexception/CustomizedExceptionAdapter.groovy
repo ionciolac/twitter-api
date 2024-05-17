@@ -24,11 +24,11 @@ class CustomizedExceptionAdapter extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     ResponseEntity<ExceptionResponse> handleObjectNotFoundException(ObjectNotFoundException ex) {
-        return new ResponseEntity<>(ExceptionResponse.builder().date(now()).message(ex.getMessage()).build(), NOT_FOUND);
+        return new ResponseEntity<>(ExceptionResponse.builder().date(now()).message(ex.getMessage()).build(), NOT_FOUND)
     }
 
     @ExceptionHandler(BadRequestException.class)
     ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException ex) {
-        return new ResponseEntity<>(ExceptionResponse.builder().date(now()).message(ex.getMessage()).build(), BAD_REQUEST);
+        return new ResponseEntity<>(ExceptionResponse.builder().date(now()).message(ex.getMessage()).build(), BAD_REQUEST)
     }
 }
