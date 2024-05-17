@@ -34,24 +34,17 @@ class FeedService implements FeedInPort {
 
     @Override
     Page<Feed> getMyFeed(String authorizedUserId, Pageable pageable) {
-        def userIds = followerOutPort.getUserFollowers(authorizedUserId)
-        return postOutPort.getPostsByUsersId(userIds, pageable)
-                .map { feedServiceMapper.toFeed(it) }
-                .map {
-                    {
-                        PostMeta postMeta = PostMeta.builder()
-                                .commentCount(commentOutPort.getPostCommentsCount(it.getId()))
-                                .likeCount(likeOutPort.getPostLikesCount(it.getId()))
-                                .build()
-                        it.setPostMeta(postMeta)
-                        return it
-                    }
-                }
+        return getUserFeed(authorizedUserId, pageable)
     }
 
     @Override
     Page<Feed> getUserMyFeed(String authorizedUserId, String userId, Pageable pageable) {
-        return postOutPort.getPost(userId, pageable)
+        return getUserFeed(userId, pageable)
+    }
+
+    def getUserFeed(String userId, Pageable pageable) {
+        def userIds = followerOutPort.getUserFollowers(userId)
+        return postOutPort.getPostsByUsersId(userIds, pageable)
                 .map { feedServiceMapper.toFeed(it) }
                 .map {
                     {

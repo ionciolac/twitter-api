@@ -26,7 +26,7 @@ class UserRestAdapter {
     }
 
     @PostMapping("user")
-    ResponseEntity<UserResponse> createUser(@RequestBody CreateUserRequest createUserRequest) {
+    ResponseEntity<UserResponse> createUser(CreateUserRequest createUserRequest) {
         def user = userRestMapper.toUser(createUserRequest)
         user = userInPort.createUser(user)
         def userResponse = userRestMapper.toUserResponse(user)
@@ -35,7 +35,7 @@ class UserRestAdapter {
 
     @PutMapping("user")
     ResponseEntity<UserResponse> updateUser(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                            @RequestBody UserRequest userInfoRequest) {
+                                            UserRequest userInfoRequest) {
         def user = userRestMapper.toUser(userInfoRequest)
         user.setId(authenticatedUser.getId())
         user = userInPort.updateUser(user)

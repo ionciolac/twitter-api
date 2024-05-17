@@ -10,7 +10,10 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @SecurityRequirement(name = "twitter-api")
 @RestController
@@ -27,7 +30,7 @@ class FeedRestAdapter {
 
     @GetMapping("/my-feed")
     ResponseEntity<Page<FeedResponse>> getMyFeed(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                 @RequestBody Pageable pageable) {
+                                                 Pageable pageable) {
         def feedResponse = feedInPort.getMyFeed(authenticatedUser.getId(), pageable)
                 .map { feedRestMapper.toFeedResponse(it) }
         return new ResponseEntity<Page<FeedResponse>>(feedResponse, HttpStatus.OK)
@@ -36,7 +39,7 @@ class FeedRestAdapter {
     @GetMapping("user/{id}/my-feed")
     ResponseEntity<Page<FeedResponse>> userMyFeed(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
                                                   @PathVariable("id") String id,
-                                                  @RequestBody Pageable pageable) {
+                                                  Pageable pageable) {
         def feedResponse = feedInPort.getUserMyFeed(authenticatedUser.getId(), id, pageable)
                 .map { feedRestMapper.toFeedResponse(it) }
         return new ResponseEntity<Page<FeedResponse>>(feedResponse, HttpStatus.OK)

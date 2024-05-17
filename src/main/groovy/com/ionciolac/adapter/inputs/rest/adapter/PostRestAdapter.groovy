@@ -29,7 +29,7 @@ class PostRestAdapter {
 
     @PostMapping("post")
     ResponseEntity<PostResponse> createPost(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                            @RequestBody CreatePostRequest createPostRequest) {
+                                            CreatePostRequest createPostRequest) {
         def post = postRestMapper.toPost(createPostRequest)
         post = postInPort.createPost(authenticatedUser.getId(), post)
         def userResponse = postRestMapper.toPostResponse(post)
@@ -38,7 +38,7 @@ class PostRestAdapter {
 
     @PutMapping("post")
     ResponseEntity<PostResponse> updatePost(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                            @RequestBody UpdatePostRequest updatePostRequest) {
+                                            UpdatePostRequest updatePostRequest) {
         def post = postRestMapper.toPost(updatePostRequest)
         post = postInPort.updatePost(authenticatedUser.getId(), post)
         def userResponse = postRestMapper.toPostResponse(post)
@@ -62,7 +62,7 @@ class PostRestAdapter {
 
     @GetMapping("post")
     ResponseEntity<Page<PostResponse>> getUserPosts(@AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-                                                    @RequestBody Pageable pageable) {
+                                                    Pageable pageable) {
         def userPosts = postInPort.getPostUser(authenticatedUser.getId(), pageable)
                 .map { val -> postRestMapper.toPostResponse(val) }
         return new ResponseEntity<Page<PostResponse>>(userPosts, HttpStatus.OK)
