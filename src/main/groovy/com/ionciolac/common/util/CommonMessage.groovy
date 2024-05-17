@@ -14,4 +14,5 @@ class CommonMessage {
     static final def USER_WAS_NOT_FOUND_BY_USERNAME = "User with this %s username was not found in DB"
     static final def USER_ALREADY_LIKED_POST = "User %s already liked post %s"
     static final def FOREIGN_MESSAGE = "You can't %s foreign %s."
+    static final def CANNOT_FOLLOW_YOUR_SELF = "You can't follow yourself."
 }
