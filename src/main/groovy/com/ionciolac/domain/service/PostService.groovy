@@ -5,6 +5,7 @@ import com.ionciolac.common.util.CommonMessage
 import com.ionciolac.domain.model.Post
 import com.ionciolac.port.inputs.PostInPort
 import com.ionciolac.port.outputs.PostOutPort
+import org.apache.coyote.BadRequestException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -26,31 +27,49 @@ class PostService implements PostInPort {
     @Override
     Post updatePost(String authorizedUserId, Post post) {
         def id = post.getId()
-        def optionalPost = postOutPort.getPost(id)
-        if (optionalPost.isPresent()) {
-            def dbPost = optionalPost.get()
+        def dbPost = getDBPost(id)
+        if (authorizedUserId == dbPost.getUserId()) {
             dbPost.setPost(post.getPost())
             return postOutPort.upsertPost(dbPost)
-        } else
-            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.POST, id))
+        } else {
+            String msg = String.format(CommonMessage.FOREIGN_MESSAGE, CommonMessage.EDIT, CommonMessage.POST)
+            throw new BadRequestException(msg)
+        }
     }
 
     @Override
     void deletePost(String authorizedUserId, String id) {
+        def post = getDBPost(id)
+        if (post.getUserId() != authorizedUserId) {
+            String msg = String.format(CommonMessage.FOREIGN_MESSAGE, CommonMessage.DELETE, CommonMessage.POST)
+            throw new BadRequestException(msg)
+        }
         postOutPort.deletePost(id)
     }
 
     @Override
     Post getPost(String authorizedUserId, String id) {
-        def postFromDB = postOutPort.getPost(id)
-        if (postFromDB.isPresent())
-            return postFromDB.get()
-        else
-            throw new ObjectNotFoundException(String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.POST, id))
+        def post = getDBPost(id)
+        if (post.getUserId() == authorizedUserId) {
+            return post
+        } else {
+            String msg = String.format(CommonMessage.FOREIGN_MESSAGE, CommonMessage.VIEW, CommonMessage.POST)
+            throw new ObjectNotFoundException(msg)
+        }
     }
 
     @Override
     Page<Post> getPostUser(String authorizedUserId, Pageable pageable) {
         return postOutPort.getPost(authorizedUserId, pageable)
+    }
+
+    private def getDBPost(String id) {
+        def post = postOutPort.getPost(id)
+        if (post.isPresent()) {
+            return post.get()
+        } else {
+            String msg = String.format(CommonMessage.NOT_FOUND_MESSAGE, CommonMessage.POST, id)
+            throw new ObjectNotFoundException(msg)
+        }
     }
 }
