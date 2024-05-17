@@ -2,6 +2,7 @@ package com.ionciolac.adapter.inputs.rest.customizedexception
 
 import com.ionciolac.common.exception.ObjectAlreadyExistException
 import com.ionciolac.common.exception.ObjectNotFoundException
+import org.apache.coyote.BadRequestException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -24,5 +25,10 @@ class CustomizedExceptionAdapter extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ObjectNotFoundException.class)
     ResponseEntity<ExceptionResponse> handleObjectNotFoundException(ObjectNotFoundException ex) {
         return new ResponseEntity<>(ExceptionResponse.builder().date(now()).message(ex.getMessage()).build(), NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException ex) {
+        return new ResponseEntity<>(ExceptionResponse.builder().date(now()).message(ex.getMessage()).build(), BAD_REQUEST);
     }
 }
